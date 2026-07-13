@@ -23,32 +23,6 @@ function formatMoeda(v, simbolo) {
   })}`;
 }
 
-function AdSlot({ label, height }) {
-  return (
-    <div
-      style={{
-        width: "100%",
-        height,
-        background:
-          "repeating-linear-gradient(45deg, #F1EA9A, #F1EA9A 10px, #E3D9A0 10px, #E3D9A0 20px)",
-        border: `1.5px dashed ${COLORS.subDim}`,
-        borderRadius: 14,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        fontFamily: "Inter, system-ui, sans-serif",
-        fontSize: 12,
-        fontWeight: 700,
-        color: COLORS.sub,
-        letterSpacing: "0.06em",
-        textTransform: "uppercase",
-      }}
-    >
-      {label}
-    </div>
-  );
-}
-
 function LinhaDenominacao({ valor, simbolo, quantidade, onChange }) {
   const subtotal = valor * quantidade;
   return (
@@ -136,11 +110,7 @@ export default function CashSumApp({ slug }) {
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Sora:wght@700;800&family=Inter:wght@400;500;600;700&display=swap');
         .cs-layout { display: flex; justify-content: center; gap: 20px; align-items: flex-start; }
-        .cs-rail { display: none; }
         .cs-cols { display: block; }
-        @media (min-width: 1100px) {
-          .cs-rail { display: block; width: 160px; position: sticky; top: 24px; }
-        }
         @media (min-width: 640px) {
           .cs-cols { display: flex; gap: 20px; }
           .cs-cols > div { flex: 1; }
@@ -148,51 +118,85 @@ export default function CashSumApp({ slug }) {
       `}</style>
 
       {/* Header */}
-      <div style={{ background: COLORS.indigo, padding: "44px 24px 56px" }}>
-        <div style={{ maxWidth: 640, margin: "0 auto" }}>
-          <h1
+      <div style={{ background: COLORS.indigo, padding: "44px 24px 56px", position: "relative", overflow: "hidden" }}>
+        <div
+          style={{
+            maxWidth: 640,
+            margin: "0 auto",
+            position: "relative",
+            display: "flex",
+            alignItems: "flex-start",
+            justifyContent: "space-between",
+            gap: 16,
+          }}
+        >
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <h1
+              style={{
+                fontFamily: "Sora, sans-serif",
+                fontSize: 56,
+                fontWeight: 800,
+                color: COLORS.bg,
+                margin: 0,
+                lineHeight: 1.05,
+              }}
+            >
+              CashSum
+            </h1>
+            <p
+              style={{
+                fontFamily: "Inter, system-ui, sans-serif",
+                fontSize: 15,
+                fontWeight: 600,
+                color: COLORS.red,
+                marginTop: 10,
+                maxWidth: 440,
+              }}
+            >
+              {config.tagline}
+            </p>
+            <p
+              style={{
+                fontFamily: "Inter, system-ui, sans-serif",
+                fontSize: 15,
+                color: "#DCEAE0",
+                marginTop: 8,
+                maxWidth: 440,
+              }}
+            >
+              {config.description}
+            </p>
+          </div>
+
+          <div
             style={{
-              fontFamily: "Sora, sans-serif",
-              fontSize: 56,
-              fontWeight: 800,
-              color: COLORS.bg,
-              margin: 0,
-              lineHeight: 1.05,
+              width: 110,
+              height: 110,
+              minWidth: 110,
+              borderRadius: "50%",
+              background: COLORS.bg,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              overflow: "hidden",
+              position: "relative",
+              marginTop: -8,
             }}
           >
-            CashSum
-          </h1>
-          <p
-            style={{
-              fontFamily: "Inter, system-ui, sans-serif",
-              fontSize: 15,
-              fontWeight: 600,
-              color: COLORS.red,
-              marginTop: 10,
-              maxWidth: 440,
-            }}
-          >
-            {config.tagline}
-          </p>
-          <p
-            style={{
-              fontFamily: "Inter, system-ui, sans-serif",
-              fontSize: 15,
-              color: "#DCEAE0",
-              marginTop: 8,
-              maxWidth: 440,
-            }}
-          >
-            {config.description}
-          </p>
+            <div
+              style={{
+                position: "absolute",
+                inset: 0,
+                borderRadius: "50%",
+                border: `3px dashed ${COLORS.purple}`,
+              }}
+            />
+            <img src="/logo.png" alt="CashSum logo" style={{ width: 100, height: "auto" }} />
+          </div>
         </div>
       </div>
 
       <div className="cs-layout" style={{ maxWidth: 1000, margin: "24px auto 0", padding: "0 24px" }}>
-        <div className="cs-rail">
-          <AdSlot label="Ad · 160×600" height={480} />
-        </div>
-
         <div style={{ maxWidth: 640, width: "100%", minWidth: 0, flexShrink: 1 }}>
           {/* Currency selector */}
           <div style={{ display: "flex", gap: 8, marginBottom: 20, flexWrap: "wrap" }}>
@@ -371,12 +375,6 @@ export default function CashSumApp({ slug }) {
               </div>
             </div>
           </div>
-
-          <AdSlot label="Ad · Banner 728×90" height={90} />
-        </div>
-
-        <div className="cs-rail">
-          <AdSlot label="Ad · 160×600" height={480} />
         </div>
       </div>
 
