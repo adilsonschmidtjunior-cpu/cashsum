@@ -5,22 +5,22 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 const EURO_LANGS = [
-  { slug: "eur", label: "English" },
-  { slug: "euro-de", label: "Deutsch" },
-  { slug: "euro-fr", label: "Français" },
-  { slug: "euro-es", label: "Español" },
-  { slug: "euro-it", label: "Italiano" },
-  { slug: "euro-nl", label: "Nederlands" },
-  { slug: "euro-pt", label: "Português" },
-  { slug: "euro-el", label: "Ελληνικά" },
-  { slug: "euro-fi", label: "Suomi" },
-  { slug: "euro-sk", label: "Slovenčina" },
-  { slug: "euro-sl", label: "Slovenščina" },
-  { slug: "euro-hr", label: "Hrvatski" },
-  { slug: "euro-et", label: "Eesti" },
-  { slug: "euro-lv", label: "Latviešu" },
-  { slug: "euro-lt", label: "Lietuvių" },
-  { slug: "euro-bg", label: "Български" },
+  { slug: "eur", label: "English", abbr: "EN" },
+  { slug: "euro-de", label: "Deutsch", abbr: "DE" },
+  { slug: "euro-fr", label: "Français", abbr: "FR" },
+  { slug: "euro-es", label: "Español", abbr: "ES" },
+  { slug: "euro-it", label: "Italiano", abbr: "IT" },
+  { slug: "euro-nl", label: "Nederlands", abbr: "NL" },
+  { slug: "euro-pt", label: "Português", abbr: "PT" },
+  { slug: "euro-el", label: "Ελληνικά", abbr: "EL" },
+  { slug: "euro-fi", label: "Suomi", abbr: "FI" },
+  { slug: "euro-sk", label: "Slovenčina", abbr: "SK" },
+  { slug: "euro-sl", label: "Slovenščina", abbr: "SL" },
+  { slug: "euro-hr", label: "Hrvatski", abbr: "HR" },
+  { slug: "euro-et", label: "Eesti", abbr: "ET" },
+  { slug: "euro-lv", label: "Latviešu", abbr: "LV" },
+  { slug: "euro-lt", label: "Lietuvių", abbr: "LT" },
+  { slug: "euro-bg", label: "Български", abbr: "BG" },
 ];
 import { CURRENCIES } from "@/lib/currencies";
 
@@ -174,8 +174,35 @@ export default function CashSumApp({ slug }) {
         style={{
           background: COLORS.indigo,
           padding: "26px 24px 30px",
+          position: "relative",
         }}
       >
+        {config.simbolo === "€" && (
+          <select
+            value={slug}
+            onChange={(e) => router.push(`/${e.target.value}`)}
+            style={{
+              position: "absolute",
+              top: 16,
+              right: 16,
+              fontFamily: "Inter, system-ui, sans-serif",
+              fontWeight: 700,
+              fontSize: 13,
+              padding: "6px 10px",
+              borderRadius: 999,
+              border: "none",
+              background: COLORS.red,
+              color: "#FFFFFF",
+              cursor: "pointer",
+            }}
+          >
+            {EURO_LANGS.map((l) => (
+              <option key={l.slug} value={l.slug}>
+                🌐 {l.abbr}
+              </option>
+            ))}
+          </select>
+        )}
         <div style={{ maxWidth: 640, margin: "0 auto" }}>
           <h1
             style={{
@@ -253,29 +280,6 @@ export default function CashSumApp({ slug }) {
                       />
                       {m.nome}
                     </Link>
-                    {k === "eur" && config.simbolo === "€" && (
-                      <select
-                        value={slug}
-                        onChange={(e) => router.push(`/${e.target.value}`)}
-                        style={{
-                          fontFamily: "Inter, system-ui, sans-serif",
-                          fontWeight: 700,
-                          fontSize: 14,
-                          padding: "10px 14px",
-                          borderRadius: 999,
-                          border: `1.5px solid ${COLORS.cardBorder}`,
-                          background: COLORS.card,
-                          color: COLORS.ink,
-                          cursor: "pointer",
-                        }}
-                      >
-                        {EURO_LANGS.map((l) => (
-                          <option key={l.slug} value={l.slug}>
-                            🌐 {l.label}
-                          </option>
-                        ))}
-                      </select>
-                    )}
                   </React.Fragment>
                 );
               })}
