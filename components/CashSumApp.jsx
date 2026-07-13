@@ -399,6 +399,43 @@ export default function CashSumApp({ slug }) {
             </div>
           </div>
 
+          {config.article && (
+            <div
+              style={{
+                background: COLORS.card,
+                borderRadius: 20,
+                padding: 24,
+                border: `1.5px solid ${COLORS.cardBorder}`,
+                marginBottom: 20,
+              }}
+            >
+              <h2
+                style={{
+                  fontFamily: "Sora, sans-serif",
+                  fontSize: 18,
+                  fontWeight: 700,
+                  margin: "0 0 12px",
+                  color: COLORS.indigo,
+                }}
+              >
+                {config.article.heading}
+              </h2>
+              {config.article.paragraphs.map((p, i) => (
+                <p
+                  key={i}
+                  style={{
+                    fontFamily: "Inter, system-ui, sans-serif",
+                    fontSize: 14,
+                    lineHeight: 1.6,
+                    color: COLORS.sub,
+                    marginBottom: 12,
+                  }}
+                >
+                  {p}
+                </p>
+              ))}
+            </div>
+          )}
         </div>
       </div>
 
