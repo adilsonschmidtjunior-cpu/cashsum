@@ -56,7 +56,7 @@ function LinhaDenominacao({ valor, simbolo, quantidade, onChange }) {
       style={{
         display: "flex",
         alignItems: "center",
-        gap: 12,
+        gap: 8,
         padding: "10px 0",
         borderBottom: `1px solid ${COLORS.cardBorder}`,
       }}
@@ -65,9 +65,9 @@ function LinhaDenominacao({ valor, simbolo, quantidade, onChange }) {
         style={{
           fontFamily: "Sora, sans-serif",
           fontWeight: 700,
-          fontSize: 14,
+          fontSize: 13,
           color: COLORS.ink,
-          width: 84,
+          width: 64,
           flexShrink: 0,
         }}
       >
@@ -81,9 +81,10 @@ function LinhaDenominacao({ valor, simbolo, quantidade, onChange }) {
         placeholder="0"
         onChange={(e) => onChange(parseInt(e.target.value) || 0)}
         style={{
-          width: 68,
-          padding: "8px 10px",
-          fontSize: 15,
+          width: 52,
+          flexShrink: 0,
+          padding: "8px 6px",
+          fontSize: 14,
           borderRadius: 10,
           border: `1.5px solid ${COLORS.cardBorder}`,
           background: "#FFFFFF",
@@ -97,11 +98,11 @@ function LinhaDenominacao({ valor, simbolo, quantidade, onChange }) {
         style={{
           marginLeft: "auto",
           fontFamily: "Inter, system-ui, sans-serif",
-          fontSize: 14,
+          fontSize: 13,
           fontWeight: 700,
           color: subtotal > 0 ? COLORS.red : COLORS.subDim,
-          minWidth: 88,
           textAlign: "right",
+          whiteSpace: "nowrap",
         }}
       >
         {formatMoeda(subtotal, simbolo)}
@@ -147,81 +148,43 @@ export default function CashSumApp({ slug }) {
       `}</style>
 
       {/* Header */}
-      <div style={{ background: COLORS.indigo, padding: "44px 24px 56px", position: "relative", overflow: "hidden" }}>
-        <div
-          style={{
-            maxWidth: 640,
-            margin: "0 auto",
-            position: "relative",
-            display: "flex",
-            alignItems: "flex-start",
-            justifyContent: "space-between",
-            gap: 16,
-          }}
-        >
-          <div style={{ flex: 1, minWidth: 0 }}>
-            <h1
-              style={{
-                fontFamily: "Sora, sans-serif",
-                fontSize: 56,
-                fontWeight: 800,
-                color: COLORS.bg,
-                margin: 0,
-                lineHeight: 1.05,
-              }}
-            >
-              CashSum
-            </h1>
-            <p
-              style={{
-                fontFamily: "Inter, system-ui, sans-serif",
-                fontSize: 15,
-                fontWeight: 600,
-                color: COLORS.red,
-                marginTop: 10,
-                maxWidth: 440,
-              }}
-            >
-              {config.tagline}
-            </p>
-            <p
-              style={{
-                fontFamily: "Inter, system-ui, sans-serif",
-                fontSize: 15,
-                color: "#DCEAE0",
-                marginTop: 8,
-                maxWidth: 440,
-              }}
-            >
-              {config.description}
-            </p>
-          </div>
-
-          <div
+      <div style={{ background: COLORS.indigo, padding: "44px 24px 56px" }}>
+        <div style={{ maxWidth: 640, margin: "0 auto" }}>
+          <h1
             style={{
-              width: 110,
-              height: 110,
-              minWidth: 110,
-              borderRadius: "50%",
-              background: COLORS.bg,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              overflow: "hidden",
-              position: "relative",
-              marginTop: -8,
+              fontFamily: "Sora, sans-serif",
+              fontSize: 56,
+              fontWeight: 800,
+              color: COLORS.bg,
+              margin: 0,
+              lineHeight: 1.05,
             }}
           >
-            <div
-              style={{
-                position: "absolute",
-                inset: 0,
-                borderRadius: "50%",
-                border: `3px dashed ${COLORS.purple}`,
-              }}
-            />
-            <img src="/logo.png" alt="CashSum logo" style={{ width: 100, height: "auto" }} />
-          </div>
+            CashSum
+          </h1>
+          <p
+            style={{
+              fontFamily: "Inter, system-ui, sans-serif",
+              fontSize: 15,
+              fontWeight: 600,
+              color: COLORS.red,
+              marginTop: 10,
+              maxWidth: 440,
+            }}
+          >
+            {config.tagline}
+          </p>
+          <p
+            style={{
+              fontFamily: "Inter, system-ui, sans-serif",
+              fontSize: 15,
+              color: "#DCEAE0",
+              marginTop: 8,
+              maxWidth: 440,
+            }}
+          >
+            {config.description}
+          </p>
         </div>
       </div>
 
@@ -322,7 +285,7 @@ export default function CashSumApp({ slug }) {
               style={{
                 background: COLORS.card,
                 borderRadius: 20,
-                padding: 24,
+                padding: 18,
                 border: `1.5px solid ${COLORS.cardBorder}`,
                 marginBottom: 20,
               }}
@@ -367,7 +330,7 @@ export default function CashSumApp({ slug }) {
               style={{
                 background: COLORS.card,
                 borderRadius: 20,
-                padding: 24,
+                padding: 18,
                 border: `1.5px solid ${COLORS.cardBorder}`,
                 marginBottom: 20,
               }}
