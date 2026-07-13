@@ -220,7 +220,7 @@ export default function CashSumApp({ slug }) {
                 border: `3px dashed ${COLORS.purple}`,
               }}
             />
-            <img src="/logo.png" alt="CashSum logo" style={{ width: 220, height: "auto" }} />
+            <img src="/logo.png" alt="CashSum logo" style={{ width: 100, height: "auto" }} />
           </div>
         </div>
       </div>
@@ -230,7 +230,7 @@ export default function CashSumApp({ slug }) {
           <AdSlot label="Ad · 160×600" height={480} />
         </div>
 
-        <div style={{ maxWidth: 640, width: "100%" }}>
+        <div style={{ maxWidth: 640, width: "100%", minWidth: 0, flexShrink: 1 }}>
           {/* Currency selector */}
           <div style={{ display: "flex", gap: 8, marginBottom: 20, flexWrap: "wrap" }}>
             {Object.entries(CURRENCIES).map(([k, m]) => {
