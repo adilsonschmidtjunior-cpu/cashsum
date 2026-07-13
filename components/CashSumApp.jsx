@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import React, { useState, useMemo } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
@@ -173,17 +173,14 @@ export default function CashSumApp({ slug }) {
       <div
         style={{
           background: COLORS.indigo,
-          padding: "44px 24px 56px",
-          maxWidth: 1100,
-          margin: "0 auto",
-          borderRadius: 0,
+          padding: "26px 24px 30px",
         }}
       >
         <div style={{ maxWidth: 640, margin: "0 auto" }}>
           <h1
             style={{
               fontFamily: "Sora, sans-serif",
-              fontSize: 56,
+              fontSize: 40,
               fontWeight: 800,
               color: COLORS.bg,
               margin: 0,
@@ -195,10 +192,10 @@ export default function CashSumApp({ slug }) {
           <p
             style={{
               fontFamily: "Inter, system-ui, sans-serif",
-              fontSize: 15,
+              fontSize: 14,
               fontWeight: 600,
               color: COLORS.red,
-              marginTop: 10,
+              marginTop: 6,
               maxWidth: 440,
             }}
           >
@@ -207,9 +204,9 @@ export default function CashSumApp({ slug }) {
           <p
             style={{
               fontFamily: "Inter, system-ui, sans-serif",
-              fontSize: 15,
+              fontSize: 14,
               color: "#DCEAE0",
-              marginTop: 8,
+              marginTop: 4,
               maxWidth: 440,
             }}
           >
@@ -228,34 +225,58 @@ export default function CashSumApp({ slug }) {
               .map(([k, m]) => {
                 const active = k === slug;
                 return (
-                  <Link
-                    key={k}
-                    href={`/${k}`}
-                    style={{
-                      fontFamily: "Inter, system-ui, sans-serif",
-                      fontWeight: 700,
-                      fontSize: 14,
-                      padding: "10px 16px",
-                      borderRadius: 999,
-                      border: active ? "none" : `1.5px solid ${COLORS.cardBorder}`,
-                      background: active ? COLORS.purple : COLORS.card,
-                      color: COLORS.ink,
-                      textDecoration: "none",
-                      boxShadow: active ? "0 6px 16px rgba(188,172,206,0.6)" : "none",
-                      display: "inline-flex",
-                      alignItems: "center",
-                      gap: 8,
-                    }}
-                  >
-                    <img
-                      src={`https://flagcdn.com/24x18/${m.flagCode}.png`}
-                      alt=""
-                      width="20"
-                      height="15"
-                      style={{ borderRadius: 2, flexShrink: 0 }}
-                    />
-                    {m.nome}
-                  </Link>
+                  <React.Fragment key={k}>
+                    <Link
+                      href={`/${k}`}
+                      style={{
+                        fontFamily: "Inter, system-ui, sans-serif",
+                        fontWeight: 700,
+                        fontSize: 14,
+                        padding: "10px 16px",
+                        borderRadius: 999,
+                        border: active ? "none" : `1.5px solid ${COLORS.cardBorder}`,
+                        background: active ? COLORS.purple : COLORS.card,
+                        color: COLORS.ink,
+                        textDecoration: "none",
+                        boxShadow: active ? "0 6px 16px rgba(188,172,206,0.6)" : "none",
+                        display: "inline-flex",
+                        alignItems: "center",
+                        gap: 8,
+                      }}
+                    >
+                      <img
+                        src={`https://flagcdn.com/24x18/${m.flagCode}.png`}
+                        alt=""
+                        width="20"
+                        height="15"
+                        style={{ borderRadius: 2, flexShrink: 0 }}
+                      />
+                      {m.nome}
+                    </Link>
+                    {k === "eur" && config.simbolo === "€" && (
+                      <select
+                        value={slug}
+                        onChange={(e) => router.push(`/${e.target.value}`)}
+                        style={{
+                          fontFamily: "Inter, system-ui, sans-serif",
+                          fontWeight: 700,
+                          fontSize: 14,
+                          padding: "10px 14px",
+                          borderRadius: 999,
+                          border: `1.5px solid ${COLORS.cardBorder}`,
+                          background: COLORS.card,
+                          color: COLORS.ink,
+                          cursor: "pointer",
+                        }}
+                      >
+                        {EURO_LANGS.map((l) => (
+                          <option key={l.slug} value={l.slug}>
+                            🌐 {l.label}
+                          </option>
+                        ))}
+                      </select>
+                    )}
+                  </React.Fragment>
                 );
               })}
             {Object.entries(CURRENCIES).filter(([k, m]) => !m.hidden).length > 8 && (
@@ -275,29 +296,6 @@ export default function CashSumApp({ slug }) {
               >
                 {showAllCurrencies ? "− Show less" : "+ More currencies"}
               </button>
-            )}
-            {config.simbolo === "€" && (
-              <select
-                value={slug}
-                onChange={(e) => router.push(`/${e.target.value}`)}
-                style={{
-                  fontFamily: "Inter, system-ui, sans-serif",
-                  fontWeight: 700,
-                  fontSize: 14,
-                  padding: "10px 14px",
-                  borderRadius: 999,
-                  border: `1.5px solid ${COLORS.cardBorder}`,
-                  background: COLORS.card,
-                  color: COLORS.ink,
-                  cursor: "pointer",
-                }}
-              >
-                {EURO_LANGS.map((l) => (
-                  <option key={l.slug} value={l.slug}>
-                    🌐 {l.label}
-                  </option>
-                ))}
-              </select>
             )}
           </div>
 
