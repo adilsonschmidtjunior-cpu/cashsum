@@ -2,6 +2,26 @@
 
 import { useState, useMemo } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+
+const EURO_LANGS = [
+  { slug: "eur", label: "English" },
+  { slug: "euro-de", label: "Deutsch" },
+  { slug: "euro-fr", label: "Français" },
+  { slug: "euro-es", label: "Español" },
+  { slug: "euro-it", label: "Italiano" },
+  { slug: "euro-nl", label: "Nederlands" },
+  { slug: "euro-pt", label: "Português" },
+  { slug: "euro-el", label: "Ελληνικά" },
+  { slug: "euro-fi", label: "Suomi" },
+  { slug: "euro-sk", label: "Slovenčina" },
+  { slug: "euro-sl", label: "Slovenščina" },
+  { slug: "euro-hr", label: "Hrvatski" },
+  { slug: "euro-et", label: "Eesti" },
+  { slug: "euro-lv", label: "Latviešu" },
+  { slug: "euro-lt", label: "Lietuvių" },
+  { slug: "euro-bg", label: "Български" },
+];
 import { CURRENCIES } from "@/lib/currencies";
 
 const COLORS = {
@@ -112,6 +132,7 @@ function LinhaDenominacao({ valor, simbolo, quantidade, onChange }) {
 }
 
 export default function CashSumApp({ slug }) {
+  const router = useRouter();
   const config = CURRENCIES[slug];
   const [qtdNotas, setQtdNotas] = useState({});
   const [qtdMoedas, setQtdMoedas] = useState({});
@@ -149,7 +170,15 @@ export default function CashSumApp({ slug }) {
       `}</style>
 
       {/* Header */}
-      <div style={{ background: COLORS.indigo, padding: "44px 24px 56px" }}>
+      <div
+        style={{
+          background: COLORS.indigo,
+          padding: "44px 24px 56px",
+          maxWidth: 1100,
+          margin: "0 auto",
+          borderRadius: 0,
+        }}
+      >
         <div style={{ maxWidth: 640, margin: "0 auto" }}>
           <h1
             style={{
@@ -194,6 +223,7 @@ export default function CashSumApp({ slug }) {
           {/* Currency selector */}
           <div style={{ display: "flex", gap: 8, marginBottom: 20, flexWrap: "wrap" }}>
             {Object.entries(CURRENCIES)
+              .filter(([k, m]) => !m.hidden)
               .slice(0, showAllCurrencies ? undefined : 8)
               .map(([k, m]) => {
                 const active = k === slug;
@@ -228,7 +258,7 @@ export default function CashSumApp({ slug }) {
                   </Link>
                 );
               })}
-            {Object.keys(CURRENCIES).length > 8 && (
+            {Object.entries(CURRENCIES).filter(([k, m]) => !m.hidden).length > 8 && (
               <button
                 onClick={() => setShowAllCurrencies((v) => !v)}
                 style={{
@@ -245,6 +275,29 @@ export default function CashSumApp({ slug }) {
               >
                 {showAllCurrencies ? "− Show less" : "+ More currencies"}
               </button>
+            )}
+            {config.simbolo === "€" && (
+              <select
+                value={slug}
+                onChange={(e) => router.push(`/${e.target.value}`)}
+                style={{
+                  fontFamily: "Inter, system-ui, sans-serif",
+                  fontWeight: 700,
+                  fontSize: 14,
+                  padding: "10px 14px",
+                  borderRadius: 999,
+                  border: `1.5px solid ${COLORS.cardBorder}`,
+                  background: COLORS.card,
+                  color: COLORS.ink,
+                  cursor: "pointer",
+                }}
+              >
+                {EURO_LANGS.map((l) => (
+                  <option key={l.slug} value={l.slug}>
+                    🌐 {l.label}
+                  </option>
+                ))}
+              </select>
             )}
           </div>
 
