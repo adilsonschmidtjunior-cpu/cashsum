@@ -212,9 +212,19 @@ export default function CashSumApp({ slug }) {
                       color: COLORS.ink,
                       textDecoration: "none",
                       boxShadow: active ? "0 6px 16px rgba(188,172,206,0.6)" : "none",
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: 8,
                     }}
                   >
-                    {m.bandeira} {m.nome}
+                    <img
+                      src={`https://flagcdn.com/24x18/${m.flagCode}.png`}
+                      alt=""
+                      width="20"
+                      height="15"
+                      style={{ borderRadius: 2, flexShrink: 0 }}
+                    />
+                    {m.nome}
                   </Link>
                 );
               })}
