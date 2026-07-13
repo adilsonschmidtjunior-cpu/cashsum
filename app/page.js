@@ -4,5 +4,3 @@ import { DEFAULT_CURRENCY } from "@/lib/currencies";
 export default function Home() {
   redirect(`/${DEFAULT_CURRENCY}`);
 }
-  return <CashSumApp slug={currency} />;
-}
