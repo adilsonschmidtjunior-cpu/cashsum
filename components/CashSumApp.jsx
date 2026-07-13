@@ -23,6 +23,32 @@ function formatMoeda(v, simbolo) {
   })}`;
 }
 
+function AdSlot({ label, height }) {
+  return (
+    <div
+      style={{
+        width: "100%",
+        height,
+        background:
+          "repeating-linear-gradient(45deg, #F1EA9A, #F1EA9A 10px, #E3D9A0 10px, #E3D9A0 20px)",
+        border: `1.5px dashed ${COLORS.subDim}`,
+        borderRadius: 14,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        fontFamily: "Inter, system-ui, sans-serif",
+        fontSize: 12,
+        fontWeight: 700,
+        color: COLORS.sub,
+        letterSpacing: "0.06em",
+        textTransform: "uppercase",
+      }}
+    >
+      {label}
+    </div>
+  );
+}
+
 function LinhaDenominacao({ valor, simbolo, quantidade, onChange }) {
   const subtotal = valor * quantidade;
   return (
@@ -89,6 +115,7 @@ export default function CashSumApp({ slug }) {
   const config = CURRENCIES[slug];
   const [qtdNotas, setQtdNotas] = useState({});
   const [qtdMoedas, setQtdMoedas] = useState({});
+  const [showAllCurrencies, setShowAllCurrencies] = useState(false);
 
   const totalNotas = useMemo(
     () => config.notas.reduce((acc, v) => acc + v * (qtdNotas[v] || 0), 0),
@@ -110,7 +137,11 @@ export default function CashSumApp({ slug }) {
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Sora:wght@700;800&family=Inter:wght@400;500;600;700&display=swap');
         .cs-layout { display: flex; justify-content: center; gap: 20px; align-items: flex-start; }
+        .cs-rail { display: none; }
         .cs-cols { display: block; }
+        @media (min-width: 1100px) {
+          .cs-rail { display: block; width: 160px; position: sticky; top: 24px; }
+        }
         @media (min-width: 640px) {
           .cs-cols { display: flex; gap: 20px; }
           .cs-cols > div { flex: 1; }
@@ -162,29 +193,49 @@ export default function CashSumApp({ slug }) {
         <div style={{ maxWidth: 640, width: "100%", minWidth: 0, flexShrink: 1 }}>
           {/* Currency selector */}
           <div style={{ display: "flex", gap: 8, marginBottom: 20, flexWrap: "wrap" }}>
-            {Object.entries(CURRENCIES).map(([k, m]) => {
-              const active = k === slug;
-              return (
-                <Link
-                  key={k}
-                  href={`/${k}`}
-                  style={{
-                    fontFamily: "Inter, system-ui, sans-serif",
-                    fontWeight: 700,
-                    fontSize: 14,
-                    padding: "10px 16px",
-                    borderRadius: 999,
-                    border: active ? "none" : `1.5px solid ${COLORS.cardBorder}`,
-                    background: active ? COLORS.purple : COLORS.card,
-                    color: COLORS.ink,
-                    textDecoration: "none",
-                    boxShadow: active ? "0 6px 16px rgba(188,172,206,0.6)" : "none",
-                  }}
-                >
-                  {m.nome}
-                </Link>
-              );
-            })}
+            {Object.entries(CURRENCIES)
+              .slice(0, showAllCurrencies ? undefined : 8)
+              .map(([k, m]) => {
+                const active = k === slug;
+                return (
+                  <Link
+                    key={k}
+                    href={`/${k}`}
+                    style={{
+                      fontFamily: "Inter, system-ui, sans-serif",
+                      fontWeight: 700,
+                      fontSize: 14,
+                      padding: "10px 16px",
+                      borderRadius: 999,
+                      border: active ? "none" : `1.5px solid ${COLORS.cardBorder}`,
+                      background: active ? COLORS.purple : COLORS.card,
+                      color: COLORS.ink,
+                      textDecoration: "none",
+                      boxShadow: active ? "0 6px 16px rgba(188,172,206,0.6)" : "none",
+                    }}
+                  >
+                    {m.bandeira} {m.nome}
+                  </Link>
+                );
+              })}
+            {Object.keys(CURRENCIES).length > 8 && (
+              <button
+                onClick={() => setShowAllCurrencies((v) => !v)}
+                style={{
+                  fontFamily: "Inter, system-ui, sans-serif",
+                  fontWeight: 700,
+                  fontSize: 14,
+                  padding: "10px 16px",
+                  borderRadius: 999,
+                  border: `1.5px dashed ${COLORS.subDim}`,
+                  background: "transparent",
+                  color: COLORS.sub,
+                  cursor: "pointer",
+                }}
+              >
+                {showAllCurrencies ? "− Show less" : "+ More currencies"}
+              </button>
+            )}
           </div>
 
           {/* Total */}
@@ -337,6 +388,7 @@ export default function CashSumApp({ slug }) {
               </div>
             </div>
           </div>
+
         </div>
       </div>
 
