@@ -278,4 +278,79 @@ export default function CashSumApp({ slug }) {
               ))}
               <div
                 style={{
-                  display:
+                  display: "flex",
+                  justifyContent: "space-between",
+                  paddingTop: 12,
+                  fontFamily: "Inter, system-ui, sans-serif",
+                  fontWeight: 700,
+                  fontSize: 14,
+                  color: COLORS.ink,
+                }}
+              >
+                <span>{config.ui.coinsSub}</span>
+                <span>{formatMoeda(totalMoedas, config.simbolo)}</span>
+              </div>
+            </div>
+
+            <div
+              style={{
+                background: COLORS.card,
+                borderRadius: 20,
+                padding: 18,
+                border: `1.5px solid ${COLORS.cardBorder}`,
+                marginBottom: 20,
+              }}
+            >
+              <h2
+                style={{
+                  fontFamily: "Sora, sans-serif",
+                  fontSize: 15,
+                  fontWeight: 700,
+                  margin: "0 0 8px",
+                  color: COLORS.indigo,
+                }}
+              >
+                💵 {config.ui.notes}
+              </h2>
+              {config.notas.map((v) => (
+                <LinhaDenominacao
+                  key={v}
+                  valor={v}
+                  simbolo={config.simbolo}
+                  quantidade={qtdNotas[v] || 0}
+                  onChange={(q) => setQtdNotas((s) => ({ ...s, [v]: q }))}
+                />
+              ))}
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  paddingTop: 12,
+                  fontFamily: "Inter, system-ui, sans-serif",
+                  fontWeight: 700,
+                  fontSize: 14,
+                  color: COLORS.ink,
+                }}
+              >
+                <span>{config.ui.notesSub}</span>
+                <span>{formatMoeda(totalNotas, config.simbolo)}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        style={{
+          textAlign: "center",
+          fontFamily: "Inter, system-ui, sans-serif",
+          fontSize: 12,
+          color: COLORS.subDim,
+          padding: "32px 0 40px",
+        }}
+      >
+        CashSum © {new Date().getFullYear()} · {config.ui.footer}
+      </div>
+    </div>
+  );
+}
