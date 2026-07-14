@@ -22,6 +22,7 @@ const COLORS = {
 export default async function FaqPage({ searchParams }) {
   const params = await searchParams;
   const content = getFaqContent(params?.lang);
+  const backHref = params?.from ? `/${params.from}` : "/eur";
 
   return (
     <div style={{ minHeight: "100vh", background: COLORS.bg, color: COLORS.ink }}>
@@ -72,7 +73,7 @@ export default async function FaqPage({ searchParams }) {
         ))}
 
         <a
-          href="/eur"
+          href={backHref}
           style={{
             display: "inline-block",
             marginTop: 10,
