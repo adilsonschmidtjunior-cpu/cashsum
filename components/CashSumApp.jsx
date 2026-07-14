@@ -4,6 +4,17 @@ import React, { useState, useMemo } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
+const ABOUT_LABELS = {
+  en: "About",
+  "pt-BR": "Sobre",
+  "pt-PT": "Sobre",
+  de: "Über",
+  fr: "À propos",
+  es: "Acerca de",
+  it: "Chi siamo",
+  nl: "Over",
+};
+
 const EURO_LANGS = [
   { slug: "eur", label: "English", abbr: "EN" },
   { slug: "euro-de", label: "Deutsch", abbr: "DE" },
@@ -506,14 +517,14 @@ export default function CashSumApp({ slug }) {
         CashSum © {new Date().getFullYear()} · {config.ui.footer}
         <div style={{ marginTop: 8 }}>
           <Link
-            href={`/about?lang=${config.lang}`}
+            href={`/about?lang=${config.lang}&from=${slug}`}
             style={{ color: COLORS.red, fontWeight: 700, textDecoration: "underline" }}
           >
-            About
+            {ABOUT_LABELS[config.lang] || "About"}
           </Link>
           {" · "}
           <Link
-            href={`/faq?lang=${config.lang}`}
+            href={`/faq?lang=${config.lang}&from=${slug}`}
             style={{ color: COLORS.red, fontWeight: 700, textDecoration: "underline" }}
           >
             FAQ
