@@ -504,6 +504,15 @@ export default function CashSumApp({ slug }) {
         }}
       >
         CashSum © {new Date().getFullYear()} · {config.ui.footer}
+        <div style={{ marginTop: 6 }}>
+          <Link href="/about" style={{ color: COLORS.subDim, textDecoration: "underline" }}>
+            About
+          </Link>
+          {" · "}
+          <Link href="/faq" style={{ color: COLORS.subDim, textDecoration: "underline" }}>
+            FAQ
+          </Link>
+        </div>
       </div>
     </div>
   );
