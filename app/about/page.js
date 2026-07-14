@@ -22,6 +22,7 @@ const COLORS = {
 export default async function AboutPage({ searchParams }) {
   const params = await searchParams;
   const content = getAboutContent(params?.lang);
+  const backHref = params?.from ? `/${params.from}` : "/eur";
 
   return (
     <div style={{ minHeight: "100vh", background: COLORS.bg, color: COLORS.ink }}>
@@ -65,7 +66,7 @@ export default async function AboutPage({ searchParams }) {
         </div>
 
         <a
-          href="/eur"
+          href={backHref}
           style={{
             display: "inline-block",
             marginTop: 20,
