@@ -18,6 +18,18 @@ export default function sitemap() {
       changeFrequency: "monthly",
       priority: 1,
     },
+    {
+      url: `${base}/about`,
+      lastModified: now,
+      changeFrequency: "yearly",
+      priority: 0.3,
+    },
+    {
+      url: `${base}/faq`,
+      lastModified: now,
+      changeFrequency: "yearly",
+      priority: 0.3,
+    },
     ...currencyUrls,
   ];
 }
