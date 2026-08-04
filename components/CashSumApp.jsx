@@ -458,6 +458,10 @@ export default function CashSumApp({ slug }) {
             </div>
           </div>
 
+          <div style={{ marginBottom: 20 }}>
+            <AdSlot slot="3789125205" format="horizontal" style={{ minHeight: 90 }} />
+          </div>
+
           {config.article && (
             <div
               style={{
@@ -495,10 +499,6 @@ export default function CashSumApp({ slug }) {
               ))}
             </div>
           )}
-
-          <div style={{ marginBottom: 20 }}>
-            <AdSlot slot="3789125205" format="horizontal" style={{ minHeight: 90 }} />
-          </div>
         </div>
 
         <div className="cs-rail">
