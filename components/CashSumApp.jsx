@@ -157,6 +157,8 @@ export default function CashSumApp({ slug }) {
     setQtdMoedas({});
   }
 
+  const visibleCurrencies = Object.entries(CURRENCIES).filter(([k, m]) => !m.hidden);
+
   return (
     <div style={{ minHeight: "100vh", background: COLORS.bg, color: COLORS.ink }}>
       <style>{`
@@ -255,46 +257,43 @@ export default function CashSumApp({ slug }) {
 
       <div className="cs-layout" style={{ maxWidth: 1000, margin: "24px auto 0", padding: "0 24px" }}>
         <div className="cs-main">
-          {/* Currency selector */}
+          {/* Currency selector — all currencies stay in the HTML, extras hidden via CSS until expanded */}
           <div style={{ display: "flex", gap: 8, marginBottom: 20, flexWrap: "wrap" }}>
-            {Object.entries(CURRENCIES)
-              .filter(([k, m]) => !m.hidden)
-              .slice(0, showAllCurrencies ? undefined : 8)
-              .map(([k, m]) => {
-                const active = k === slug;
-                return (
-                  <React.Fragment key={k}>
-                    <Link
-                      href={`/${k}`}
-                      style={{
-                        fontFamily: "Inter, system-ui, sans-serif",
-                        fontWeight: 700,
-                        fontSize: 14,
-                        padding: "10px 16px",
-                        borderRadius: 999,
-                        border: active ? "none" : `1.5px solid ${COLORS.cardBorder}`,
-                        background: active ? COLORS.purple : COLORS.card,
-                        color: COLORS.ink,
-                        textDecoration: "none",
-                        boxShadow: active ? "0 6px 16px rgba(188,172,206,0.6)" : "none",
-                        display: "inline-flex",
-                        alignItems: "center",
-                        gap: 8,
-                      }}
-                    >
-                      <img
-                        src={`https://flagcdn.com/24x18/${m.flagCode}.png`}
-                        alt=""
-                        width="20"
-                        height="15"
-                        style={{ borderRadius: 2, flexShrink: 0 }}
-                      />
-                      {m.nome}
-                    </Link>
-                  </React.Fragment>
-                );
-              })}
-            {Object.entries(CURRENCIES).filter(([k, m]) => !m.hidden).length > 8 && (
+            {visibleCurrencies.map(([k, m], idx) => {
+              const active = k === slug;
+              const isExtra = idx >= 8;
+              return (
+                <Link
+                  key={k}
+                  href={`/${k}`}
+                  style={{
+                    fontFamily: "Inter, system-ui, sans-serif",
+                    fontWeight: 700,
+                    fontSize: 14,
+                    padding: "10px 16px",
+                    borderRadius: 999,
+                    border: active ? "none" : `1.5px solid ${COLORS.cardBorder}`,
+                    background: active ? COLORS.purple : COLORS.card,
+                    color: COLORS.ink,
+                    textDecoration: "none",
+                    boxShadow: active ? "0 6px 16px rgba(188,172,206,0.6)" : "none",
+                    display: isExtra && !showAllCurrencies ? "none" : "inline-flex",
+                    alignItems: "center",
+                    gap: 8,
+                  }}
+                >
+                  <img
+                    src={`https://flagcdn.com/24x18/${m.flagCode}.png`}
+                    alt=""
+                    width="20"
+                    height="15"
+                    style={{ borderRadius: 2, flexShrink: 0 }}
+                  />
+                  {m.nome}
+                </Link>
+              );
+            })}
+            {visibleCurrencies.length > 8 && (
               <button
                 onClick={() => setShowAllCurrencies((v) => !v)}
                 style={{
