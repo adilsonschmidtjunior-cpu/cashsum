@@ -161,11 +161,18 @@ export default function CashSumApp({ slug }) {
     <div style={{ minHeight: "100vh", background: COLORS.bg, color: COLORS.ink }}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Sora:wght@700;800&family=Inter:wght@400;500;600;700&display=swap');
-        .cs-layout { display: flex; justify-content: center; gap: 20px; align-items: flex-start; }
+        .cs-layout { position: relative; }
+        .cs-main { max-width: 640px; margin: 0 auto; }
         .cs-rail { display: none; }
         .cs-cols { display: block; }
         @media (min-width: 1100px) {
-          .cs-rail { display: block; width: 160px; position: sticky; top: 24px; }
+          .cs-rail {
+            display: block;
+            position: absolute;
+            top: 24px;
+            left: calc(50% + 340px);
+            width: 160px;
+          }
         }
         @media (min-width: 640px) {
           .cs-cols { display: flex; gap: 20px; }
@@ -247,7 +254,7 @@ export default function CashSumApp({ slug }) {
       </div>
 
       <div className="cs-layout" style={{ maxWidth: 1000, margin: "24px auto 0", padding: "0 24px" }}>
-        <div style={{ maxWidth: 640, width: "100%", minWidth: 0, flexShrink: 1 }}>
+        <div className="cs-main">
           {/* Currency selector */}
           <div style={{ display: "flex", gap: 8, marginBottom: 20, flexWrap: "wrap" }}>
             {Object.entries(CURRENCIES)
