@@ -35,6 +35,11 @@ const EURO_LANGS = [
 ];
 import { CURRENCIES } from "@/lib/currencies";
 
+const DISPLAY_ORDER = [
+  "eur", "usd", "won", "cad", "peso", "real", "rupiah", "jpy",
+  "libra", "lira", "yuan", "rupee", "ngn", "php", "ars", "dong",
+];
+
 const COLORS = {
   bg: "#FFFDB4",
   card: "#FFFFFF",
@@ -157,7 +162,9 @@ export default function CashSumApp({ slug }) {
     setQtdMoedas({});
   }
 
-  const visibleCurrencies = Object.entries(CURRENCIES).filter(([k, m]) => !m.hidden);
+  const visibleCurrencies = Object.entries(CURRENCIES)
+    .filter(([k, m]) => !m.hidden)
+    .sort((a, b) => DISPLAY_ORDER.indexOf(a[0]) - DISPLAY_ORDER.indexOf(b[0]));
 
   return (
     <div style={{ minHeight: "100vh", background: COLORS.bg, color: COLORS.ink }}>
