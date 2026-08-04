@@ -78,6 +78,67 @@ function AdSlot({ slot, format = "auto", style }) {
   );
 }
 
+function TotalCard({ config, total, onClear }) {
+  return (
+    <div
+      style={{
+        background: COLORS.card,
+        borderRadius: 20,
+        padding: "26px 28px",
+        marginBottom: 20,
+        border: `1.5px solid ${COLORS.cardBorder}`,
+        boxShadow: "0 10px 30px rgba(35,0,63,0.10)",
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        flexWrap: "wrap",
+        gap: 12,
+      }}
+    >
+      <div>
+        <p
+          style={{
+            fontFamily: "Inter, system-ui, sans-serif",
+            fontSize: 13,
+            color: COLORS.sub,
+            margin: "0 0 6px",
+            fontWeight: 700,
+          }}
+        >
+          {config.ui.total}
+        </p>
+        <div
+          style={{
+            fontFamily: "Sora, sans-serif",
+            fontSize: 46,
+            fontWeight: 800,
+            lineHeight: 1,
+            color: COLORS.red,
+          }}
+        >
+          {formatMoeda(total, config.simbolo)}
+        </div>
+      </div>
+      <button
+        onClick={onClear}
+        style={{
+          fontFamily: "Inter, system-ui, sans-serif",
+          fontWeight: 700,
+          fontSize: 13,
+          padding: "10px 16px",
+          borderRadius: 10,
+          border: `1.5px solid ${COLORS.cardBorder}`,
+          background: "#FFFFFF",
+          color: COLORS.ink,
+          cursor: "pointer",
+        }}
+      >
+        {config.ui.clear}
+      </button>
+    </div>
+  );
+}
+
 function LinhaDenominacao({ valor, simbolo, quantidade, onChange }) {
   const subtotal = valor * quantidade;
   return (
@@ -320,63 +381,8 @@ export default function CashSumApp({ slug }) {
             )}
           </div>
 
-          {/* Total */}
-          <div
-            style={{
-              background: COLORS.card,
-              borderRadius: 20,
-              padding: "26px 28px",
-              marginBottom: 20,
-              border: `1.5px solid ${COLORS.cardBorder}`,
-              boxShadow: "0 10px 30px rgba(35,0,63,0.10)",
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              flexWrap: "wrap",
-              gap: 12,
-            }}
-          >
-            <div>
-              <p
-                style={{
-                  fontFamily: "Inter, system-ui, sans-serif",
-                  fontSize: 13,
-                  color: COLORS.sub,
-                  margin: "0 0 6px",
-                  fontWeight: 700,
-                }}
-              >
-                {config.ui.total}
-              </p>
-              <div
-                style={{
-                  fontFamily: "Sora, sans-serif",
-                  fontSize: 46,
-                  fontWeight: 800,
-                  lineHeight: 1,
-                  color: COLORS.red,
-                }}
-              >
-                {formatMoeda(total, config.simbolo)}
-              </div>
-            </div>
-            <button
-              onClick={limpar}
-              style={{
-                fontFamily: "Inter, system-ui, sans-serif",
-                fontWeight: 700,
-                fontSize: 13,
-                padding: "10px 16px",
-                borderRadius: 10,
-                border: `1.5px solid ${COLORS.cardBorder}`,
-                background: "#FFFFFF",
-                color: COLORS.ink,
-                cursor: "pointer",
-              }}
-            >
-              {config.ui.clear}
-            </button>
-          </div>
+          {/* Total — top */}
+          <TotalCard config={config} total={total} onClear={limpar} />
 
           {/* Coins + Notes side by side */}
           <div className="cs-cols" style={{ marginBottom: 20 }}>
@@ -470,6 +476,9 @@ export default function CashSumApp({ slug }) {
               </div>
             </div>
           </div>
+
+          {/* Total — bottom, so you don't have to scroll back up after filling everything in */}
+          <TotalCard config={config} total={total} onClear={limpar} />
 
           <div style={{ marginBottom: 20 }}>
             <AdSlot slot="3789125205" format="horizontal" style={{ minHeight: 90 }} />
