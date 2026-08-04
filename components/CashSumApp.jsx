@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
@@ -54,29 +54,22 @@ function formatMoeda(v, simbolo) {
   })}`;
 }
 
-function AdSlot({ label, height }) {
+function AdSlot({ slot, format = "auto", style }) {
+  useEffect(() => {
+    try {
+      (window.adsbygoogle = window.adsbygoogle || []).push({});
+    } catch (e) {}
+  }, []);
+
   return (
-    <div
-      style={{
-        width: "100%",
-        height,
-        background:
-          "repeating-linear-gradient(45deg, #F1EA9A, #F1EA9A 10px, #E3D9A0 10px, #E3D9A0 20px)",
-        border: `1.5px dashed ${COLORS.subDim}`,
-        borderRadius: 14,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        fontFamily: "Inter, system-ui, sans-serif",
-        fontSize: 12,
-        fontWeight: 700,
-        color: COLORS.sub,
-        letterSpacing: "0.06em",
-        textTransform: "uppercase",
-      }}
-    >
-      {label}
-    </div>
+    <ins
+      className="adsbygoogle"
+      style={{ display: "block", ...style }}
+      data-ad-client="ca-pub-1120468337160701"
+      data-ad-slot={slot}
+      data-ad-format={format}
+      data-full-width-responsive="true"
+    />
   );
 }
 
@@ -502,6 +495,14 @@ export default function CashSumApp({ slug }) {
               ))}
             </div>
           )}
+
+          <div style={{ marginBottom: 20 }}>
+            <AdSlot slot="3789125205" format="horizontal" style={{ minHeight: 90 }} />
+          </div>
+        </div>
+
+        <div className="cs-rail">
+          <AdSlot slot="6415288544" style={{ minHeight: 600 }} />
         </div>
       </div>
 
