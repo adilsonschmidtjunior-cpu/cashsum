@@ -17,6 +17,9 @@ export async function generateMetadata({ params }) {
     alternates: {
       canonical: `https://cashsum.app/${currency}`,
     },
+    robots: config.hidden
+      ? { index: false, follow: true }
+      : { index: true, follow: true },
     openGraph: {
       title: `${config.pageTitle} – CashSum`,
       description: config.description,
