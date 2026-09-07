@@ -11,9 +11,11 @@ export async function generateMetadata({ params }) {
   const config = getCurrency(currency);
   if (!config) return {};
 
+  const metaDescription = config.metaDescription || config.description;
+
   return {
     title: `${config.pageTitle} – CashSum`,
-    description: `${config.description} ${config.searchTerm}`,
+    description: metaDescription,
     alternates: {
       canonical: `https://cashsum.app/${currency}`,
     },
@@ -22,7 +24,7 @@ export async function generateMetadata({ params }) {
       : { index: true, follow: true },
     openGraph: {
       title: `${config.pageTitle} – CashSum`,
-      description: config.description,
+      description: metaDescription,
       url: `https://cashsum.app/${currency}`,
       siteName: "CashSum",
     },
