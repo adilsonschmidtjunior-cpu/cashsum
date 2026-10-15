@@ -12,6 +12,30 @@ export async function generateMetadata({ searchParams }) {
   };
 }
 
+const CONTACT_EMAIL = "hello@cashsum.app";
+
+const CONTACT_LABELS = {
+  en: "Contact",
+  "pt-BR": "Contato",
+  "pt-PT": "Contacto",
+  de: "Kontakt",
+  fr: "Contact",
+  es: "Contacto",
+  it: "Contatti",
+  nl: "Contact",
+};
+
+const PRIVACY_LABELS = {
+  en: "Privacy Policy",
+  "pt-BR": "Política de Privacidade",
+  "pt-PT": "Política de Privacidade",
+  de: "Datenschutzerklärung",
+  fr: "Politique de confidentialité",
+  es: "Política de privacidad",
+  it: "Informativa sulla privacy",
+  nl: "Privacybeleid",
+};
+
 const COLORS = {
   bg: "#FFFDB4",
   card: "#FFFFFF",
@@ -66,6 +90,19 @@ export default async function AboutPage({ searchParams }) {
               {p}
             </p>
           ))}
+          <p style={{ marginTop: 16, marginBottom: 0 }}>
+            <strong style={{ color: COLORS.ink }}>
+              {CONTACT_LABELS[params?.lang] || "Contact"}:
+            </strong>{" "}
+            <a href={`mailto:${CONTACT_EMAIL}`} style={{ color: COLORS.red, fontWeight: 600 }}>
+              {CONTACT_EMAIL}
+            </a>
+          </p>
+          <p style={{ marginTop: 6, marginBottom: 0 }}>
+            <a href="/privacy" style={{ color: COLORS.red, fontWeight: 600 }}>
+              {PRIVACY_LABELS[params?.lang] || "Privacy Policy"}
+            </a>
+          </p>
         </div>
 
         <a
