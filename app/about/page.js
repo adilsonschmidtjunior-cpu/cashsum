@@ -5,6 +5,9 @@ export async function generateMetadata({ searchParams }) {
   const content = getAboutContent(params?.lang);
   return {
     title: `${content.title} – CashSum`,
+    alternates: {
+      canonical: "https://cashsum.app/about",
+    },
     description: content.paragraphs[0],
   };
 }
