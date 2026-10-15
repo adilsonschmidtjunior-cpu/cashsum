@@ -5,6 +5,9 @@ export async function generateMetadata({ searchParams }) {
   const content = getFaqContent(params?.lang);
   return {
     title: `${content.title} – CashSum`,
+    alternates: {
+      canonical: "https://cashsum.app/faq",
+    },
     description: content.items[0]?.a || "",
   };
 }
