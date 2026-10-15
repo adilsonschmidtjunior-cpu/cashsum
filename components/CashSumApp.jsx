@@ -15,6 +15,17 @@ const ABOUT_LABELS = {
   nl: "Over",
 };
 
+const PRIVACY_LABELS = {
+  en: "Privacy",
+  "pt-BR": "Privacidade",
+  "pt-PT": "Privacidade",
+  de: "Datenschutz",
+  fr: "Confidentialité",
+  es: "Privacidad",
+  it: "Privacy",
+  nl: "Privacy",
+};
+
 const EURO_LANGS = [
   { slug: "eur", label: "English", abbr: "EN" },
   { slug: "euro-de", label: "Deutsch", abbr: "DE" },
@@ -551,6 +562,13 @@ export default function CashSumApp({ slug }) {
             style={{ color: COLORS.red, fontWeight: 700, textDecoration: "underline" }}
           >
             FAQ
+          </Link>
+          {" · "}
+          <Link
+            href="/privacy"
+            style={{ color: COLORS.red, fontWeight: 700, textDecoration: "underline" }}
+          >
+            {PRIVACY_LABELS[config.lang] || "Privacy"}
           </Link>
         </div>
       </div>
