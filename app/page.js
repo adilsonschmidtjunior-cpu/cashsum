@@ -1,5 +1,4 @@
 import { headers } from "next/headers";
-import { redirect } from "next/navigation";
 import Link from "next/link";
 import { CURRENCIES } from "@/lib/currencies";
 import AdSlot from "@/components/AdSlot";
@@ -79,15 +78,13 @@ export default async function Home() {
   const country = headersList.get("x-vercel-ip-country");
   const target = country ? COUNTRY_TO_CURRENCY[country] : null;
 
-  // Redirect real (HTTP), não render disfarçado — isso é o que evita a
-  // duplicação de conteúdo entre "/" e "/eur" que confundiu o Google.
-  if (target) {
-    redirect(`/${target}`);
-  }
+  // Sem redirecionamento: a homepage é igual para todos (inclusive o Google).
+  // A moeda do país do visitante só aparece primeiro e destacada.
 
   const visibleCurrencies = Object.entries(CURRENCIES)
     .filter(([, m]) => !m.hidden)
-    .sort((a, b) => DISPLAY_ORDER.indexOf(a[0]) - DISPLAY_ORDER.indexOf(b[0]));
+    .sort((a, b) => DISPLAY_ORDER.indexOf(a[0]) - DISPLAY_ORDER.indexOf(b[0]))
+    .sort((a, b) => (b[0] === target ? 1 : 0) - (a[0] === target ? 1 : 0));
 
   return (
     <div style={{ minHeight: "100vh", background: COLORS.bg, color: COLORS.ink }}>
@@ -160,7 +157,7 @@ export default async function Home() {
                 fontSize: 14,
                 padding: "14px 16px",
                 borderRadius: 16,
-                border: `1.5px solid ${COLORS.cardBorder}`,
+                border: k === target ? `2px solid ${COLORS.red}` : `1.5px solid ${COLORS.cardBorder}`,
                 background: COLORS.card,
                 color: COLORS.ink,
                 textDecoration: "none",
