@@ -179,6 +179,56 @@ export default async function Home() {
           ))}
         </div>
 
+        <div
+          style={{
+            background: COLORS.card,
+            borderRadius: 20,
+            padding: 24,
+            border: `1.5px solid ${COLORS.cardBorder}`,
+            fontFamily: "Inter, system-ui, sans-serif",
+            fontSize: 15,
+            lineHeight: 1.7,
+            color: COLORS.sub,
+            marginBottom: 24,
+          }}
+        >
+          <h2 style={{ fontFamily: "Sora, sans-serif", fontSize: 20, fontWeight: 800, color: COLORS.ink, margin: "0 0 10px" }}>
+            Count a pile of cash without a calculator and a notepad
+          </h2>
+          <p style={{ marginTop: 0 }}>
+            Counting cash by hand usually means adding up each denomination separately, writing the
+            subtotals down and then adding those again — and one slip means starting over. CashSum
+            does the arithmetic for you: type how many of each note and coin you have, and the
+            subtotals for coins and notes and the grand total update as you type.
+          </p>
+          <h3 style={{ fontFamily: "Sora, sans-serif", fontSize: 16, fontWeight: 700, color: COLORS.ink, margin: "18px 0 6px" }}>
+            How to use it
+          </h3>
+          <ol style={{ margin: 0, paddingLeft: 20 }}>
+            <li>Pick your currency above — each page lists that currency&apos;s real notes and coins in circulation.</li>
+            <li>Sort your cash into piles by value and count each pile.</li>
+            <li>Enter the count next to each denomination. The total appears instantly; &quot;Clear all&quot; resets everything for the next count.</li>
+          </ol>
+          <h3 style={{ fontFamily: "Sora, sans-serif", fontSize: 16, fontWeight: 700, color: COLORS.ink, margin: "18px 0 6px" }}>
+            Who it&apos;s for
+          </h3>
+          <p style={{ marginTop: 0 }}>
+            Shop staff closing a till at the end of a shift, market sellers and small businesses
+            counting the day&apos;s takings, treasurers of clubs and associations handling cash
+            collections, travellers sorting leftover foreign currency, and anyone checking what&apos;s
+            in a savings jar.
+          </p>
+          <h3 style={{ fontFamily: "Sora, sans-serif", fontSize: 16, fontWeight: 700, color: COLORS.ink, margin: "18px 0 6px" }}>
+            Private by design
+          </h3>
+          <p style={{ margin: 0 }}>
+            Everything runs in your browser: the amounts you enter are never sent to or stored on a
+            server, and there&apos;s no account to create. It works on phones as well as on desktop.
+            See the <Link href="/privacy" style={{ color: COLORS.red, fontWeight: 600 }}>privacy policy</Link> for
+            details on the analytics and ads that keep the site free.
+          </p>
+        </div>
+
         <div style={{ marginBottom: 20 }}>
           <AdSlot slot="3789125205" format="horizontal" style={{ minHeight: 90 }} />
         </div>
@@ -201,6 +251,10 @@ export default async function Home() {
           {" · "}
           <Link href="/faq" style={{ color: COLORS.red, fontWeight: 700, textDecoration: "underline" }}>
             FAQ
+          </Link>
+          {" · "}
+          <Link href="/privacy" style={{ color: COLORS.red, fontWeight: 700, textDecoration: "underline" }}>
+            Privacy
           </Link>
         </div>
       </div>
